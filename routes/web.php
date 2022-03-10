@@ -21,7 +21,7 @@ Route::get('/testecomregras/{teste}/{quantidade}', function($teste, $quantidade)
 })  -> where('teste','[A-Za-z]+')
     -> where('quantidade', '[0-9]+');
 
-Route::prefix('/aplicacao')->group(function(){
+Route::prefix('/app')->group(function(){
 
     Route::get('/', function(){
         return view('app');
@@ -35,11 +35,7 @@ Route::prefix('/aplicacao')->group(function(){
 });
 
 Route::get('/produtos', function () {
-    echo "<h1>Produtos</h1>";
-    echo "<ol>";
-    echo "<li>Notebook</li>";
-    echo "<li>Impressora</li>";
-    echo "<li>Mouse</li>";
-    echo "</ol>";
+    return view('meusProdutos');
 })->name('meusprodutos');
 
+Route::redirect('todosprodutos', 'produtos', 301);
