@@ -2,40 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get ('/', function () {
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\MeuControlador;
+
+Route::get("produtos", [MeuControlador::class, "produtos"])->name("produtos");
+Route::get("nome", [MeuControlador::class, "nome"]) -> name("nome");
+Route::get("idade", [MeuControlador::class, "idade"]) -> name("idade");
+Route::get("multiplicar/{n1}/{n2}", [MeuControlador::class, "multiplicar"]) -> name("multiplicar");
+
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste', function () {
-    return "testes";
-});
-
-Route::get('/ola/{nome}', function($nome){
-    echo 'Olá! ' . $nome;
-});
-
-Route::get('/testecomregras/{teste}/{quantidade}', function($teste, $quantidade){
-    for($i=0; $i < $quantidade; $i++){
-        echo "Olá $teste <br>";
-    }
-})  -> where('teste','[A-Za-z]+')
-    -> where('quantidade', '[0-9]+');
-
-Route::prefix('/app')->group(function(){
-
-    Route::get('/', function(){
-        return view('app');
-    }) -> name('app');
-    Route::get('/user', function(){
-        return view('user');
-    }) -> name('app.user');
-    Route::get('/profile', function () {
-        return view('profile');
-    }) -> name('app.profile');
-});
-
-Route::get('/produtos', function () {
-    return view('meusProdutos');
-})->name('meusprodutos');
-
-Route::redirect('todosprodutos', 'produtos', 301);
