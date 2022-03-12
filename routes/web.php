@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\MeuControlador;
+use App\Http\Controllers\ClienteControlador;
+
 
 Route::get("produtos", [MeuControlador::class, "produtos"])->name("produtos");
 Route::get("nome", [MeuControlador::class, "nome"]) -> name("nome");
@@ -26,3 +28,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::resource('clientes', ClienteControlador::class);
