@@ -8,13 +8,21 @@ class ClienteControlador extends Controller
 {
 
     private $clientes = [
-        ['id' => 1, 'nome' => 'matheus 1'],
-        ['id' => 2, 'nome' => 'matheus 2'],
-        ['id' => 3, 'nome' => 'matheus 3'],
-        ['id' => 4, 'nome' => 'matheus 4'],
-        ['id' => 5, 'nome' => 'matheus 5'],
-        ['id' => 6, 'nome' => 'matheus 6']
+        ['id' => 1, 'nome' => 'matheus', 'sobrenome' => '1', 'email' => 'matheus@gmail.com'],
+        ['id' => 2, 'nome' => 'matheus', 'sobrenome' => '2', 'email' => 'matheus@gmail.com'],
+        ['id' => 3, 'nome' => 'matheus', 'sobrenome' => '3', 'email' => 'matheus@gmail.com'],
+        ['id' => 4, 'nome' => 'matheus', 'sobrenome' => '4', 'email' => 'matheus@gmail.com'],
+        ['id' => 5, 'nome' => 'matheus', 'sobrenome' => '5', 'email' => 'matheus@gmail.com'],
+        ['id' => 6, 'nome' => 'matheus', 'sobrenome' => '6', 'email' => 'matheus@gmail.com']
     ];
+
+    public function __construct()
+    {
+        $clientes = session('clientes');
+        if (!isset($clientes))
+            session(['clientes' => $this->clientes]);
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -23,9 +31,8 @@ class ClienteControlador extends Controller
      */
     public function index()
     {
-        $clientes = $this -> clientes;
-        return view('clientes.index',
-        compact(['clientes']));
+        $clientes = session('clientes');
+        return view('clientes.index', compact(['clientes']));
     }
 
     /**
@@ -35,7 +42,7 @@ class ClienteControlador extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.criarCliente');
     }
 
     /**
@@ -46,9 +53,17 @@ class ClienteControlador extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $clientes = session('clientes');
+        $id = count($clientes) + 1;
+        $nome = $request -> nome;
+        $sobrenome = $request -> sobrenome;
+        $email = $request -> email;
+        $dados = ['id' => $id, "nome" => $nome, "sobrenome" => $sobrenome, "email" => $email];
+        $clientes[] = $dados;
+        session(['clientes' => $clientes]);
+       $clientes = $this -> clientes;
+        return redirect() -> route('clientes.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -57,7 +72,8 @@ class ClienteControlador extends Controller
      */
     public function show($id)
     {
-        //
+        $clientes = session('clientes');
+        $id = count($clientes) + 1;
     }
 
     /**
