@@ -73,7 +73,8 @@ class ClienteControlador extends Controller
     public function show($id)
     {
         $clientes = session('clientes');
-        $cliente = $clientes[$id - 1];
+        $index = $this->getIndex($id, $clientes);
+        $cliente = $clientes[$index];
         return view('clientes.info', compact(['cliente']));
     }
 
@@ -86,7 +87,8 @@ class ClienteControlador extends Controller
     public function edit($id)
     {
         $clientes = session('clientes');
-        $cliente = $clientes[$id - 1];
+        $index = $this->getIndex($id, $clientes);
+        $cliente = $clientes[$index];
         return view('clientes.edit', compact(['cliente']));
         
     }
@@ -102,7 +104,7 @@ class ClienteControlador extends Controller
     {
         $clientes = session('clientes');
         $clientes[$id - 1]['nome'] = $request -> nome;
-        $clientes = $this -> clientes;
+        session(['clientes' => $clientes]);
         return redirect() -> route('clientes.index');
     }
 
@@ -114,6 +116,17 @@ class ClienteControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+        $clientes = session('clientes');
+        $index = $this->getIndex($id, $clientes);
+        array_splice($clientes, $index, 1);
+        session(['clientes' => $clientes]);
+        return redirect() -> route('clientes.index');
+    }
+
+    private function getIndex($id, $clientes)
+    {
+        $cols = array_column($clientes, 'id');
+        $index = array_search($id, $cols);
+        return $index;
     }
 }
