@@ -1,3 +1,9 @@
+@extends('template.main')
+
+@section('titulo', 'Clientes - Editar')
+
+@section('conteudo')
+
 <center><h3>Editar Cliente</h3>
 <form action="{{route('clientes.update', $cliente['id'])}}" method="PUT">
     @csrf <!-- cria e envia um token do formulário -->
@@ -9,3 +15,4 @@
 </form>
 
 <a href="{{route('clientes.index')}}">Voltar</a></center>
+@endsection

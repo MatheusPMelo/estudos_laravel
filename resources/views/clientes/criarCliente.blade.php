@@ -1,3 +1,9 @@
+@extends('template.main')
+
+@section('titulo', 'Criar Clientes')
+
+@section('conteudo')
+
 <center><h3>Criar Cliente</h3>
 <form action="{{route('clientes.store')}}" method="post">
     @csrf <!-- cria e envia um token do formulário -->
@@ -8,3 +14,4 @@
 </form>
 
 <a href="{{route('clientes.index')}}">Ver todos os clienter</a></center>
+@endsection

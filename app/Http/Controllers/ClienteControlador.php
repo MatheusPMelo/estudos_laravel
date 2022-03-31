@@ -32,7 +32,11 @@ class ClienteControlador extends Controller
     public function index()
     {
         $clientes = session('clientes');
-        return view('clientes.index', compact(['clientes']));
+
+        return view('clientes.index', 
+            [
+                'clientes' => $clientes, 
+            ]);
     }
 
     /**
@@ -90,7 +94,6 @@ class ClienteControlador extends Controller
         $index = $this->getIndex($id, $clientes);
         $cliente = $clientes[$index];
         return view('clientes.edit', compact(['cliente']));
-        
     }
 
     /**
@@ -103,7 +106,8 @@ class ClienteControlador extends Controller
     public function update(Request $request, $id)
     {
         $clientes = session('clientes');
-        $clientes[$id - 1]['nome'] = $request -> nome;
+        $index = $this->getIndex($id, $clientes);
+        $cliente = $clientes[$index];
         session(['clientes' => $clientes]);
         return redirect() -> route('clientes.index');
     }

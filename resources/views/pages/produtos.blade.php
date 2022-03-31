@@ -1,7 +1,10 @@
 @extends('template.main')
+
+@section('titulo','Produtos')
+
 @section('conteudo')
 
-<h3>Departamentos</h3>
+<h3>Produtos</h3>
 
 <ul>
     <li>PC</li>

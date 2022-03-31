@@ -1,4 +1,7 @@
 @extends('template.main')
+
+@section('titulo', 'Departamentos')
+
 @section('conteudo')
 
 <h3>Departamentos</h3>

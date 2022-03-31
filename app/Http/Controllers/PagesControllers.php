@@ -10,4 +10,14 @@ class PagesControllers extends Controller
     {
         return view('clientes.index');
     }
+
+    public function departamentos()
+    {
+        return view('pages.departamentos');
+    }
+
+    public function produtos()
+    {
+        return view('pages.produtos');
+    }
 }
